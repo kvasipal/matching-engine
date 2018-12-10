@@ -14,7 +14,7 @@ import java.util.Optional;
 @Getter
 @Data
 public class OrderBook {
-    @Id
+    //@Id
     private Long orderBookId;
     private Long instumentId;
     @Setter

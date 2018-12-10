@@ -18,7 +18,7 @@ public class OrderBookRepositoryImpl {
     }
 
     public Optional<OrderBook> findById(long bookId) {
-        return Optional.of(orderBooks. get(bookId));
+        return Optional.ofNullable(orderBooks. get(bookId));
     }
 
     public void save(OrderBook orderBook) {

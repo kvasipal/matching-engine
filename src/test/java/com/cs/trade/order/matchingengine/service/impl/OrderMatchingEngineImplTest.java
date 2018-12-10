@@ -8,10 +8,9 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -20,24 +19,23 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.when;
-@ComponentScan( value = "com.cs.trade.order.matchingengine")
-@SpringBootTest(classes = {OrderMatchingEngineImplTest.class})
+
+@SpringBootTest(classes = OrderMatchingEngineImplTest.class)
 public class OrderMatchingEngineImplTest {
 
     //@Mock
-    @Autowired
-     OrderBookRepositoryImpl mockOrderBookRepository;
+    private OrderBookRepositoryImpl mockOrderBookRepository;
     //@InjectMocks
-    @Autowired
      OrderMatchingEngineImpl matchingEngine;
 
     OrderBook orderBook;
 
     @Before
     public void setUp() {
-       // mockOrderBookRepository = new OrderBookRepositoryImpl();
-       // matchingEngine = new OrderMatchingEngineImpl();
-        MockitoAnnotations.initMocks(this);
+        mockOrderBookRepository = new OrderBookRepositoryImpl();
+        matchingEngine = new OrderMatchingEngineImpl();
+        ReflectionTestUtils.setField(matchingEngine,
+                "orderBookRepository", mockOrderBookRepository);
         OfferOrder offerOrder1 = OfferOrder.builder()
                 .orderPrice(new BigDecimal(10.55))
                 .instumentId(10000l)

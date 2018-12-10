@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Data
+//@Entity
 public class Order {
     //@Id
     private long orderId;

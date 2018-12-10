@@ -7,6 +7,8 @@ import com.cs.trade.order.matchingengine.service.impl.OrderBookStatusChanger;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.util.ReflectionUtils;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -29,6 +31,8 @@ public class OrderBookStatusChangerTest {
         orderBookRepository = new OrderBookRepositoryImpl();
         orderRepository = new OrderRepositoryImpl();
         orderBookStatusChanger = new OrderBookStatusChanger();
+        ReflectionTestUtils.setField(orderBookStatusChanger,
+                "orderBookRepository", orderBookRepository);
         OfferOrder offerOrder1 = OfferOrder.builder()
                 .orderPrice(new BigDecimal(10.55))
                 .instumentId(10000l)
